@@ -16,10 +16,10 @@ public class ugly_numbers {
 			if(lineArray.length > 0){
 				// Generate all permutations
 				List<String> perms = generate(line);
-				int uglyCount = 0;
+				long uglyCount = 0;
 				for(String s : perms){
 					if(isUgly(evaluate(s))){
-						//System.out.println(s);
+						//System.out.prlongln(s);
 						uglyCount++;
 					}
 				}
@@ -41,8 +41,8 @@ public class ugly_numbers {
 		// Recursive case
 		char first = str.charAt(0);
 		String rest = str.substring(1);
-		List<String> intermediate = generate(rest);
-		for(String s : intermediate){
+		List<String> longermediate = generate(rest);
+		for(String s : longermediate){
 			// Add first at the beginning with + - or nothing connecting
 			list.add(first + s);
 			list.add(first + "+" + s);
@@ -51,37 +51,37 @@ public class ugly_numbers {
 		return list;
 	}
 	
-	public static int evaluate(String expr){
+	public static long evaluate(String expr){
 		
-		int sum = 0;
+		long sum = 0;
 		int numIndex = 0;
 		boolean first = true;
 		String [] nums = expr.split("[+-]");
 		String [] ops = expr.split("\\d+");
 		if(ops.length == 0){
-			return Integer.parseInt(expr);
+			return Long.parseLong(expr);
 		}
 		for(int a = 1; a < ops.length; a++){
 			if(first == true){
 				if(ops[a].equals("+"))
-					sum += Integer.parseInt(nums[numIndex++]) + Integer.parseInt(nums[numIndex++]);
+					sum += Long.parseLong(nums[numIndex++]) + Long.parseLong(nums[numIndex++]);
 				else
-					sum += Integer.parseInt(nums[numIndex++]) - Integer.parseInt(nums[numIndex++]);
+					sum += Long.parseLong(nums[numIndex++]) - Long.parseLong(nums[numIndex++]);
 				
 				first = false;
 			}
 			else{
 				if(ops[a].equals("+")){
-					sum += Integer.parseInt(nums[numIndex++]);
+					sum += Long.parseLong(nums[numIndex++]);
 				}
 				else
-					sum -= Integer.parseInt(nums[numIndex++]);
+					sum -= Long.parseLong(nums[numIndex++]);
 			}
 		}
 		return sum;
 	}
 	
-	public static boolean isUgly(int n){
+	public static boolean isUgly(long n){
 		return n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0;
 	}
 }
